@@ -1,0 +1,32 @@
+﻿@inject IJSRuntime JS
+
+<MudPaper>
+    <MudStack Row=true Justify="Justify.Center" AlignItems="AlignItems.Center">
+        <p style="margin-bottom: 0;">© 2025 Christian Garstka</p>
+        <MudIconButton aria-label="email" OnClick=CopyEmail Disabled=@_copyingEmail>
+            @if (_copyingEmail)
+            {
+                <MudIcon Icon="@Icons.Material.Filled.Check" />
+            }
+            else
+            {
+                <MudIcon Icon="@Icons.Material.Filled.Email" />
+            }
+        </MudIconButton>
+        <MudIconButton Icon="bi bi-github d-flex" aria-label="github" Href="https://github.com/chrissquest" Target=_blank />
+        <MudIconButton Icon="bi bi-linkedin d-flex" aria-label="linkedin" Href="https://linkedin.com/in/christiangarstka" Target=_blank />
+    </MudStack>
+</MudPaper>
+
+@code
+{
+    private bool _copyingEmail = false;
+
+    async Task CopyEmail()
+    {
+        _copyingEmail = true;
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", "christiang1245@gmail.com");
+        await Task.Delay(1000);
+        _copyingEmail = false;
+    }
+}

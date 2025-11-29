@@ -1,0 +1,49 @@
+﻿<MudThemeProvider @bind-IsDarkMode="@_darkMode" Theme="GTheme" />
+
+<MudAppBar Dense=true>
+    <a Href="">
+        <MudText Typo="Typo.h6">garstka.dev</MudText>
+    </a>
+    <MudSpacer/>
+    <MudStack Row=true>
+        <a Href="projects">
+            <MudText>Projects</MudText>
+        </a>
+        <a Href="blog">
+            <MudText>Blog</MudText>
+        </a>
+        <a Href="about">
+            <MudText>About</MudText>
+        </a>
+    </MudStack>
+    <MudSwitch @bind-Value="_darkMode" Color="Color.Primary" Class="ma-4" T="bool">
+        @if (_darkMode)
+        {
+            <MudIcon Icon="@Icons.Material.Filled.DarkMode"/>
+        }
+        else
+        {
+            <MudIcon Icon="@Icons.Material.Filled.LightMode"/>
+        }
+    </MudSwitch>
+</MudAppBar>
+
+@code
+{
+    private bool _darkMode = true;
+
+    MudTheme GTheme = new MudTheme
+    {
+        PaletteLight = new PaletteLight
+        {
+            //Primary = Colors.Orange.Default,
+            //TextPrimary = Colors.Gray.Darken4,
+            AppbarBackground = Colors.Orange.Lighten4,
+            AppbarText = Colors.Gray.Default,
+        },
+        PaletteDark = new PaletteDark
+        {
+            Primary = Colors.Orange.Lighten1
+        },
+    };
+}

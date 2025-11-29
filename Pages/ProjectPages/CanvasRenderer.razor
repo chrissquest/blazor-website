@@ -1,0 +1,35 @@
+﻿@page "/project_canvas_renderer"
+
+<h>Canvas Renderer</h>
+
+<p>
+    A simple model renderer inefficiently built with the JS canvas.
+</p>
+
+<iframe src="web_projects/canvas_renderer/index.html"></iframe>
+
+<h3>Info</h3>
+
+<p>
+    So first of all, this is really not the right way to draw things, webgl exists, and I actually have another project here.
+    But this is dear to my heart because it was an old project I attempted back in highschool and it really almost worked in so many ways. It was at the time the closest I could get to truly coding something from scratch, even if I didn’t realize at the time that canvas was anywhere near low level graphics. But nevertheless I learned a LOT about graphics programming on my hunt for visualizing 3D cubes (I should eventually link even older prototypes I have which are even jankier).
+
+    This is an updated version of that initial project, with the same… mechanics for 3d rendering but everything surrounding it cleaned up much nicer. The webgl has even more modern patterns but this already is way cleaner in my opinion.
+
+    So for how it works, essentially this is rendering isometric and drawing full triangles ordered by the centroid… there is no depth buffer or anything, two triangles cannot intersect. This surprisingly works pretty well given that massive limitation, concave low polly shapes struggle the most from this, but with small enough polys the centroid is a pretty good estimate for depth and you just get some visual artifacting around the edges while rotating.
+
+    Because this is isometric, we can skip most of the projection and matrix math that would normally be done for 3D affairs and just use the x and y values:
+
+    const x1 = (v1.x * S) + transform.x;
+    const y1 = (v1.y * S) + transform.y;
+    const x2 = (v2.x * S) + transform.x;
+    const y2 = (v2.y * S) + transform.y;
+    const x3 = (v3.x * S) + transform.x;
+    const y3 = (v3.y * S) + transform.y;
+    drawTriangle(x1, y1, x2, y2, x3, y3, shaded_color);
+
+    Here I was applying some scaling and translation, although I would write this differently even now looking back at it.
+
+    Maybe I’ll write more details some other time but that’s all I got on my mind for now.
+</p>
+
